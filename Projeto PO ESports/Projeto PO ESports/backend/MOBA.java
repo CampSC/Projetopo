@@ -7,9 +7,9 @@ public class MOBA extends Jogadores {
     private int deaths;
     private float kda;
 
-    public MOBA(String idJogador, String nomeJogador, String nicknameJogador,String tipoJogador,
+    public MOBA(String nomeJogador, String nicknameJogador,String tipoJogador,
                 String password) {
-        super(idJogador, nomeJogador, nicknameJogador, tipoJogador, password);  
+        super(nomeJogador, nicknameJogador, tipoJogador, password);
         this.personagemPrincipal = null;
         this.kills = 0;
         this.assists = 0;

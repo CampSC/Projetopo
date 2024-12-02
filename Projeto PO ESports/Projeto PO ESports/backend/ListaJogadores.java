@@ -30,7 +30,7 @@ public class ListaJogadores {
         return true;
     }
 
-    public void removerTreinador(String idJogador) {
+    public void removerJogador(String idJogador) {
         Iterator<Jogadores> iterator = listajogadores.iterator();
         while (iterator.hasNext()) {
             Jogadores jogadores = iterator.next();
@@ -40,7 +40,7 @@ public class ListaJogadores {
                 return;
             }
         }
-        System.err.println("Treinador com ID " + idJogador + " não encontrado.");
+        System.err.println("Jogador com ID " + idJogador + " não encontrado.");
     }
 
     public Jogadores JogadorpeloId(String idJogador){

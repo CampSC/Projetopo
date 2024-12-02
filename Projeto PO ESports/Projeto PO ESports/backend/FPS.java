@@ -4,9 +4,9 @@ public class FPS extends Jogadores {
     private float precisao;
     private int headshots;
 
-    public FPS(String idJogador, String nomeJogador, String nicknameJogador,String tipoJogador,
+    public FPS(String nomeJogador, String nicknameJogador,String tipoJogador,
                String password) {
-        super(idJogador, nomeJogador, nicknameJogador, tipoJogador, password);
+        super(nomeJogador, nicknameJogador, tipoJogador, password);
         this.precisao = 0;
         this.headshots = 0;
     }

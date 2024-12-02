@@ -32,15 +32,15 @@ public class ListaEquipas {
         return true;
     }
 
-        public String retornarIdEquipa(String equipaGeridaTreinador){
-            for(Equipa equipa : listaequipas){
-                if(equipa.getNomeEquipa().equals(equipaGeridaTreinador)){
-                    System.out.println("Equipa encontrada");
-                    return equipa.getIdEquipa();
-                }
+    public boolean ExisteEquipa(String idEquipa){
+        for(Equipa equipa : listaequipas){
+            if(equipa.getIdEquipa().equals(idEquipa)){
+                return true;
             }
-            return null;
         }
+
+        return false;
+    }
 
     public Equipa EquipapeloId(String idEquipa){
         for (Equipa equipa : listaequipas) {
@@ -55,7 +55,15 @@ public class ListaEquipas {
     public void MostrarJogadoresNaEquipa(String idTreinador){
         Treinadores treinadores = listaTreinadores.treinadorPeloId(idTreinador);
         Equipa equipa = treinadores.getEquipaGerida();
-
+        System.out.println("Nome: " + equipa.getNomeEquipa());
+        System.out.println("Id: " + equipa.getIdEquipa());
         equipa.MostrarJogadoresNaEquipa();
+    }
+
+    public void EditarEquipa(String nome, Equipa equipa){
+
+        if(!nome.isBlank()){
+            equipa.setNomeEquipa(nome);
+        }
     }
 }

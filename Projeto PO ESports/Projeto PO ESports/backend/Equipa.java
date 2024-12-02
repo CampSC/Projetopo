@@ -5,7 +5,7 @@ import java.util.HashSet;
 import java.util.Random;
 import java.util.Set;
 public class Equipa {
-    private static final Set<String> generatedIds = new HashSet<>();
+    private static int contador = 1;
     private ArrayList<Jogadores> jogadoresnaequipa;
     private String idEquipa;
     private String nomeEquipa;
@@ -13,8 +13,8 @@ public class Equipa {
     private int vitorias;
     private int derrotas;
 
-    public Equipa(String idEquipa, String nomeEquipa, String tipoEquipa) {
-        this.idEquipa = idEquipa;
+    public Equipa(String nomeEquipa, String tipoEquipa) {
+        this.idEquipa = "E" + contador++;
         this.nomeEquipa = nomeEquipa;
         this.tipoEquipa = tipoEquipa;
         this.vitorias = 0;
@@ -24,18 +24,6 @@ public class Equipa {
 
     public Equipa(){}
 
-    public String generateUniqueId() {
-        Random random = new Random();
-        String newId;
-
-        do {
-            int number = random.nextInt(1000000);
-            newId = "e" + number;
-        } while (generatedIds.contains(newId));
-
-        generatedIds.add(newId);
-        return newId;
-    }
 
     public String getIdEquipa() {
         return idEquipa;

@@ -2,7 +2,7 @@ package backend;
 import java.util.*;
 
 public abstract class Jogadores {
-    private static final Set<String> generatedIds = new HashSet<>();
+    private static int contador = 1;
     private String idJogador;
     private String nomeJogador;
     private String nicknameJogador;
@@ -12,27 +12,12 @@ public abstract class Jogadores {
 
     }
 
-    public Jogadores(String idJogador,String nomeJogador, String nicknameJogador, String tipoJogador, String password) {
-        this.idJogador = idJogador;
+    public Jogadores(String nomeJogador, String nicknameJogador, String tipoJogador, String password) {
+        this.idJogador = "J" + contador++;
         this.nomeJogador = nomeJogador;
         this.nicknameJogador = nicknameJogador;
         this.tipoJogador = tipoJogador;
         this.password = password;
-    }
-
-
-
-    public String generateUniqueId() {
-        Random random = new Random();
-        String newId;
-
-        do {
-            int number = random.nextInt(1000000); 
-            newId = "j" + number;
-        } while (generatedIds.contains(newId));
-
-        generatedIds.add(newId); 
-        return newId;
     }
 
     public String getIdJogador() {

@@ -1,19 +1,19 @@
 package frontend;
 
-import backend.Equipa;
-import backend.ListaEquipas;
-import backend.ListaJogadores;
-import backend.ListaTreinadores;
+import backend.*;
 
 public class Menus {
     ListaJogadores listaJogadores = ListaJogadores.getInstancia();
     ListaTreinadores listaTreinadores = ListaTreinadores.getInstancia();
     ListaEquipas listaEquipas = ListaEquipas.getInstancia();
+    ListaTorneios listaTorneios = ListaTorneios.getInstancia();
+    ListaPartidas listaPartidas = ListaPartidas.getInstancia();
     Consola consola = new Consola();
     Funcoes funcoes = new Funcoes();
     Equipa equipa = new Equipa();
+    Torneios torneios = new Torneios();
 
-    public void MenuPrincipal() {
+    public void MenuPrincipal(Admin admin) {
         while (true) {
             System.out.println("=========================================");
             System.out.println("            MENU PRINCIPAL              ");
@@ -34,7 +34,8 @@ public class Menus {
                     MenuTreinadorInicial();
                     break;
                 case 3:
-                    System.out.println("Você escolheu Administrador.");
+
+                    MenuAdministrador(admin);
                     break;
                 case 4:
                     System.out.println("Saindo...");
@@ -78,6 +79,33 @@ public class Menus {
             }
         }
     }
+
+    public void MenuAdministrador(Admin admin) {
+        while (true) {
+            System.out.println("=========================================");
+            System.out.println("           MENU ADMINISTRADOR           ");
+            System.out.println("=========================================");
+            System.out.println("1 - Log In");
+            System.out.println("2 - Voltar ao Menu Principal");
+            System.out.println("=========================================");
+
+            int opcao = consola.lerInteiro("Escolha uma opção (1-2)");
+
+            switch (opcao) {
+                case 1:
+                    if(funcoes.LoginAdminMenu()){
+                        MenuPosLoginAdmin();
+                    }
+                    break;
+                case 2:
+                    System.out.println("Voltando ao Menu Principal...");
+                    return; // Sai do loop e retorna ao menu principal
+                default:
+                    System.out.println("Opção inválida! Por favor, insira um número entre 1 e 2.");
+            }
+        }
+    }
+
 
     public void MenuTreinadorInicial() {
         while (true) {
@@ -164,6 +192,189 @@ public class Menus {
         }
     }
 
+    public void MenuPosLoginAdmin() {
+        while (true) {
+            System.out.println("=========================================");
+            System.out.println("           MENU ADMINISTRADOR            ");
+            System.out.println("=========================================");
+            System.out.println("1 - Gerir Jogadores e Treinadores");
+            System.out.println("2 - Criar e Gerir Torneios");
+            System.out.println("3 - Agendar Partidas");
+            System.out.println("4 - Registar Resultados e Atualizar Classificações");
+            System.out.println("5 - Acompanhar Estatísticas e Resultados do Torneio");
+            System.out.println("6 - Sair para o Menu Anterior");
+            System.out.println("=========================================");
+
+            int opcao = consola.lerInteiro("Escolha uma opção (1-6)");
+
+            switch (opcao) {
+                case 1:
+                    System.out.println("=========================================");
+                    System.out.println("    GERIR JOGADORES E TREINADORES       ");
+                    System.out.println("=========================================");
+                    MenuGerirJogadoresTreinadores();
+                    consola.pausar();
+                    break;
+                case 2:
+                    System.out.println("=========================================");
+                    System.out.println("      CRIAR E GERIR TORNEIOS            ");
+                    System.out.println("=========================================");
+                    MenuGerirTorneios();
+                    break;
+                case 3:
+                    System.out.println("=========================================");
+                    System.out.println("           AGENDAR PARTIDAS             ");
+                    System.out.println("=========================================");
+                    funcoes.CriarPartida();
+                    listaPartidas.mostrarPartidas();
+                    consola.pausar();
+                    break;
+                case 4:
+                    System.out.println("=========================================");
+                    System.out.println("REGISTAR RESULTADOS E ATUALIZAR CLASSIFICAÇÕES");
+                    System.out.println("=========================================");
+                    // Função para registar resultados e atualizar classificações
+                    //funcoes.RegistarResultadosAtualizarClassificacoes();
+                    consola.pausar();
+                    break;
+                case 5:
+                    System.out.println("=========================================");
+                    System.out.println("ACOMPANHAR ESTATÍSTICAS E RESULTADOS DO TORNEIO");
+                    System.out.println("=========================================");
+                    // Função para acompanhar estatísticas e resultados
+                    //funcoes.AcompanharEstatisticasResultados();
+                    consola.pausar();
+                    break;
+                case 6:
+                    System.out.println("Saindo para o Menu Anterior...");
+                    return;
+                default:
+                    System.out.println("Opção inválida! Por favor, insira um número entre 1 e 6.");
+            }
+        }
+    }
+
+    public void MenuGerirTorneios() {
+        while (true) {
+            System.out.println("=========================================");
+            System.out.println("           MENU GERIR TORNEIOS           ");
+            System.out.println("=========================================");
+            System.out.println("1 - Criar Torneio");
+            System.out.println("2 - Ver Equipas no Torneio");
+            System.out.println("3 - Editar Torneio");
+            System.out.println("4 - Voltar para o Menu Anterior");
+            System.out.println("=========================================");
+
+            int opcao = consola.lerInteiro("Escolha uma opção (1-4)");
+
+            switch (opcao) {
+                case 1:
+                    System.out.println("=========================================");
+                    System.out.println("            CRIAR TORNEIO               ");
+                    System.out.println("=========================================");
+                    funcoes.CriarTorneio();
+                    consola.pausar();
+                    break;
+                case 2:
+                    System.out.println("=========================================");
+                    System.out.println("         VER EQUIPAS NO TORNEIO         ");
+                    System.out.println("=========================================");
+                    funcoes.ImprimirEquipaNoTorneio();
+                    consola.pausar();
+                    break;
+                case 3:
+                    System.out.println("=========================================");
+                    System.out.println("           EDITAR TORNEIO               ");
+                    System.out.println("=========================================");
+                    //funcoes.EditarTorneio(); // Função para editar o torneio
+                    consola.pausar();
+                    break;
+                case 4:
+                    System.out.println("Saindo para o Menu Anterior...");
+                    return; // Retorna ao menu anterior
+                default:
+                    System.out.println("Opção inválida! Por favor, insira um número entre 1 e 4.");
+            }
+        }
+    }
+
+
+    public void MenuGerirJogadoresTreinadores() {
+        while (true) {
+            System.out.println("1 - Jogador");
+            System.out.println("2 - Treinador");
+            System.out.println("3 - Voltar para o Menu Anterior");
+            System.out.println("=========================================");
+
+            int opcao = consola.lerInteiro("Escolha uma opção (1-3)");
+
+            switch (opcao) {
+                case 1:
+                    System.out.println("=========================================");
+                    System.out.println("            JOGADOR                     ");
+                    System.out.println("=========================================");
+                    MenuAdicionarOuRemover("jogador");
+                    break;
+                case 2:
+                    System.out.println("=========================================");
+                    System.out.println("            TREINADOR                   ");
+                    System.out.println("=========================================");
+                    MenuAdicionarOuRemover("treinador");
+                    break;
+                case 3:
+                    System.out.println("Voltando para o Menu Anterior...");
+                    return;  // Sai do loop e retorna ao menu anterior
+                default:
+                    System.out.println("Opção inválida! Por favor, insira um número entre 1 e 3.");
+            }
+        }
+    }
+
+
+    public void MenuAdicionarOuRemover(String tipo) {
+        while (true) {
+            System.out.println("=========================================");
+            System.out.println("      " + tipo.toUpperCase() + " - ADICIONAR OU REMOVER      ");
+            System.out.println("=========================================");
+            System.out.println("1 - Adicionar");
+            System.out.println("2 - Remover");
+            System.out.println("3 - Voltar para o Menu Anterior");
+            System.out.println("=========================================");
+
+            int opcao = consola.lerInteiro("Escolha uma opção (1-3)");
+
+            switch (opcao) {
+                case 1:
+                    System.out.println("=========================================");
+                    System.out.println("          ADICIONAR " + tipo.toUpperCase() + "          ");
+                    System.out.println("=========================================");
+                    if (tipo.equalsIgnoreCase("jogador")) {
+
+                    } else if (tipo.equalsIgnoreCase("treinador")) {
+                        funcoes.CriarTreinador();
+                    }
+                    consola.pausar();
+                    break;
+                case 2:
+                    System.out.println("=========================================");
+                    System.out.println("          REMOVER " + tipo.toUpperCase() + "          ");
+                    System.out.println("=========================================");
+                    if (tipo.equalsIgnoreCase("jogador")) {
+                        funcoes.RemoverJogador();
+                    } else if (tipo.equalsIgnoreCase("treinador")) {
+                        funcoes.RemoverTreinador();
+                    }
+                    consola.pausar();
+                    break;
+                case 3:
+                    System.out.println("Voltando para o Menu Anterior...");
+                    return;  // Sai do loop e volta para o menu anterior
+                default:
+                    System.out.println("Opção inválida! Por favor, insira um número entre 1 e 3.");
+            }
+        }
+    }
+
     public void MenuPosLoginTreinador(String idTreinador) {
         while (true) {
             System.out.println("=========================================");
@@ -195,13 +406,13 @@ public class Menus {
                     System.out.println("=========================================");
                     System.out.println("      INSCREVER EQUIPA EM TORNEIOS       ");
                     System.out.println("=========================================");
-                    //funcoes.InscreverEquipaTorneio(idTreinador);
+                    funcoes.RegistarEquipaTorneio(idTreinador);
                     break;
                 case 4:
                     System.out.println("=========================================");
                     System.out.println("             DADOS DA EQUIPA             ");
                     System.out.println("=========================================");
-                    //funcoes.MostrarDadosEquipa(idTreinador);
+                    listaEquipas.MostrarJogadoresNaEquipa(idTreinador);
                     consola.pausar();
                     break;
                 case 5:
@@ -221,8 +432,7 @@ public class Menus {
             System.out.println("1 - Adicionar Jogadores");
             System.out.println("2 - Remover Jogador");
             System.out.println("3 - Editar Detalhes da Equipa");
-            System.out.println("4-  Ver Jogadores da Equipa");
-            System.out.println("5- Voltar ao Menu Anterior");
+            System.out.println("4- Voltar ao Menu Anterior");
             System.out.println("=========================================");
 
             int opcao = consola.lerInteiro("Escolha uma opção (1-4)");
@@ -232,26 +442,23 @@ public class Menus {
                     System.out.println("=========================================");
                     System.out.println("          ADICIONAR JOGADORES            ");
                     System.out.println("=========================================");
+                    Treinadores treinadores = listaTreinadores.treinadorPeloId(idTreinador);
+                    System.out.println("Equipa: " + treinadores.getEquipaGerida().getNomeEquipa());
                     funcoes.AdicionarJogadoresEquipa(idTreinador);
                     break;
                 case 2:
                     System.out.println("=========================================");
                     System.out.println("           REMOVER JOGADOR               ");
                     System.out.println("=========================================");
-                    //funcoes.RemoverJogador(idTreinador);
+                    funcoes.RemoverJogadoresEquipa(idTreinador);
                     break;
                 case 3:
                     System.out.println("=========================================");
                     System.out.println("         EDITAR DETALHES DA EQUIPA       ");
                     System.out.println("=========================================");
-                    //funcoes.EditarEquipa(idTreinador);
+                    funcoes.EditarEquipa(idTreinador);
                     break;
                 case 4:
-                    System.out.println("=========================================");
-                    System.out.println("         VER JOGADORES DA EQUIPA       ");
-                    System.out.println("=========================================");
-                    listaEquipas.MostrarJogadoresNaEquipa(idTreinador);
-                case 5:
                     System.out.println("Voltando ao menu anterior...");
                     return;
                 default:

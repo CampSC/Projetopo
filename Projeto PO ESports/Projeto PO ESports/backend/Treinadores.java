@@ -5,15 +5,15 @@ import java.util.Random;
 import java.util.Set;
 
 public  class Treinadores {
-    private static final Set<String> generatedIds = new HashSet();
+    private static int contador = 1;
     private String idTreinador;
     private String nomeTreinador;
     private String emailTreinador;
     private String passwordTreinador;
     private Equipa equipaGerida;
 
-    public Treinadores(String idTreinador, String nomeTreinador, String emailTreinador,String passwordTreinador) {
-        this.idTreinador = idTreinador;
+    public Treinadores(String nomeTreinador, String emailTreinador,String passwordTreinador) {
+        this.idTreinador = "T" +contador++;
         this.nomeTreinador = nomeTreinador;
         this.emailTreinador = emailTreinador;
         this.passwordTreinador = passwordTreinador;
@@ -22,19 +22,6 @@ public  class Treinadores {
 
     public Treinadores(){}
 
-
-    public String generateUniqueId() {
-        Random random = new Random();
-
-        String newId;
-        do {
-            int number = random.nextInt(1000000);
-            newId = "t" + number;
-        } while (generatedIds.contains(newId));
-
-        generatedIds.add(newId);
-        return newId;
-    }
 
     public String getIdTreinador() {
         return idTreinador;

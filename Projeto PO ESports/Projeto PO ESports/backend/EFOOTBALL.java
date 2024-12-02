@@ -6,9 +6,9 @@ public class EFOOTBALL extends Jogadores{
     private int assistencias;
     private int defesas;
 
-    public EFOOTBALL(String idJogador, String nomeJogador, String nicknameJogador,String tipoJogador,
+    public EFOOTBALL(String nomeJogador, String nicknameJogador,String tipoJogador,
                      String password,String posicao) {
-        super(idJogador, nomeJogador, nicknameJogador, tipoJogador, password);
+        super(nomeJogador, nicknameJogador, tipoJogador, password);
         this.posicao = posicao;
         this.golos = 0;
         this.assistencias = 0;
