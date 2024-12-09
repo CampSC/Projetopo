@@ -3,6 +3,8 @@ package frontend;
 import backend.*;
 
 public class Menus {
+
+    private Sistema sistema;
     ListaJogadores listaJogadores = ListaJogadores.getInstancia();
     ListaTreinadores listaTreinadores = ListaTreinadores.getInstancia();
     ListaEquipas listaEquipas = ListaEquipas.getInstancia();
@@ -12,6 +14,10 @@ public class Menus {
     Funcoes funcoes = new Funcoes();
     Equipa equipa = new Equipa();
     Torneios torneios = new Torneios();
+
+    public Menus(Sistema sistema){
+        this.sistema = sistema;
+    }
 
     public void MenuPrincipal(Admin admin) {
         while (true) {
@@ -34,11 +40,11 @@ public class Menus {
                     MenuTreinadorInicial();
                     break;
                 case 3:
-
                     MenuAdministrador(admin);
                     break;
                 case 4:
-                    System.out.println("Saindo...");
+                    gravarDados();
+                    System.out.println("A sair do programa...");
                     System.exit(0);
                     break;
                 default:
@@ -46,6 +52,11 @@ public class Menus {
             }
         }
     }
+
+    public void gravarDados(){
+        sistema.gravarEstado();
+    }
+
 
     public void MenuJogadorInicial() {
         while (true) {
@@ -323,7 +334,7 @@ public class Menus {
                     break;
                 case 3:
                     System.out.println("Voltando para o Menu Anterior...");
-                    return;  // Sai do loop e retorna ao menu anterior
+                    return;
                 default:
                     System.out.println("Opção inválida! Por favor, insira um número entre 1 e 3.");
             }
@@ -466,7 +477,4 @@ public class Menus {
             }
         }
     }
-
-
-
 }

@@ -1,6 +1,7 @@
 package frontend;
 import backend.*;
 
+import java.io.*;
 import java.time.LocalDate;
 import java.util.List;
 
@@ -21,11 +22,13 @@ public class Funcoes {
     Admin admin = new Admin();
     Partida partida = new Partida();
 
+    Sistema sistema = new Sistema();
+
     public String LoginJogador() {
         String nickname = consola.lerString("Insira o seu nickname");
         String password = consola.lerString("Insira a sua palavra passe");
 
-        String idjogador = listaJogadores.LoginJogador(nickname, password);
+        String idjogador = sistema.getListaJogadores().LoginJogador(nickname, password);
 
         if (idjogador == null) {
             return null;
@@ -132,6 +135,9 @@ public class Funcoes {
             System.out.println("Erro ao criar usuario!");
             return false;
         }
+
+        sistema.gravarEstado();
+
         return true;
     }
 
@@ -409,13 +415,10 @@ public class Funcoes {
             return false;
         }
 
-        // Itera e imprime as equipes na lista
         for (Equipa equipa : listaEquipaTorneio) {
             System.out.println("Nome: " + equipa.getNomeEquipa() + " Id: " + equipa.getIdEquipa());
         }
 
         return true;
     }
-
-
 }

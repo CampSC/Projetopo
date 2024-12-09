@@ -1,7 +1,9 @@
 package backend;
+import java.io.Serializable;
 import java.util.*;
 
-public class ListaJogadores {
+public class ListaJogadores implements Serializable {
+    private static final long serialVersionUID = 1L;
 
     private static ListaJogadores instanciaUnica = null;
 
@@ -16,6 +18,14 @@ public class ListaJogadores {
             instanciaUnica = new ListaJogadores();
         }
         return instanciaUnica;
+    }
+
+    public static void setInstancia(ListaJogadores novaInstancia) {
+        if (novaInstancia != null) {
+            instanciaUnica = novaInstancia;
+        } else {
+            throw new IllegalArgumentException("A nova instância não pode ser null.");
+        }
     }
 
     public boolean adicionarJogadores(Jogadores j) {

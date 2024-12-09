@@ -1,8 +1,11 @@
 package backend;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Iterator;
-public class ListaTreinadores {
+public class ListaTreinadores implements Serializable {
+
+    private static final long serialVersionUID = 1L;
     private static ListaTreinadores instanciaUnica = null;
     private ArrayList<Treinadores> listaTreinadores = new ArrayList<>();
 
@@ -14,6 +17,14 @@ public class ListaTreinadores {
             instanciaUnica = new ListaTreinadores();
         }
         return instanciaUnica;
+    }
+
+    public static void setInstancia(ListaTreinadores novaInstancia) {
+        if (novaInstancia != null) {
+            instanciaUnica = novaInstancia;
+        } else {
+            throw new IllegalArgumentException("A nova instância não pode ser null.");
+        }
     }
 
     public boolean adicionarTreinador(Treinadores t) {

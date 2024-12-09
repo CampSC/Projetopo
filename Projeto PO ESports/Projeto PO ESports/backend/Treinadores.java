@@ -1,10 +1,13 @@
 
 package backend;
+import java.io.Serializable;
 import java.util.HashSet;
 import java.util.Random;
 import java.util.Set;
 
-public  class Treinadores {
+public  class Treinadores implements Serializable {
+
+    private static final long serialVersionUID = 1L;
     private static int contador = 1;
     private String idTreinador;
     private String nomeTreinador;

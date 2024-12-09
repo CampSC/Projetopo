@@ -1,11 +1,14 @@
 package backend;
 
+import java.io.Serializable;
 import java.time.LocalDate;
 import java.util.HashSet;
 import java.util.Random;
 import java.util.Set;
 
-public class Partida {
+public class Partida implements Serializable {
+
+    private static final long serialVersionUID = 1L;
     private static int contador = 1;
     private String idPartida;
     private Equipa equipaA;

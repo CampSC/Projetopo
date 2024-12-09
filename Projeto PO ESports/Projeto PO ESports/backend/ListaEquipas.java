@@ -1,8 +1,10 @@
 package backend;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
-public class ListaEquipas {
+public class ListaEquipas implements Serializable {
+    private static final long serialVersionUID = 1L;
 
     ListaTreinadores listaTreinadores = ListaTreinadores.getInstancia();
     private static ListaEquipas instanciaUnica = null;
@@ -18,6 +20,14 @@ public class ListaEquipas {
             instanciaUnica = new ListaEquipas();
         }
         return instanciaUnica;
+    }
+
+    public static void setInstancia(ListaEquipas novaInstancia) {
+        if (novaInstancia != null) {
+            instanciaUnica = novaInstancia;
+        } else {
+            throw new IllegalArgumentException("A nova instância não pode ser null.");
+        }
     }
 
     public boolean adicionarEquipa(Equipa e){

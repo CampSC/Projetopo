@@ -1,6 +1,10 @@
 package backend;
 
-public class MOBA extends Jogadores {
+import java.io.Serializable;
+
+public class MOBA extends Jogadores implements Serializable {
+
+    private static final long serialVersionUID = 1L;
     private String personagemPrincipal;
     private int kills;
     private int assists;

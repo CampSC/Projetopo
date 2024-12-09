@@ -1,10 +1,13 @@
 package backend;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Random;
 import java.util.Set;
-public class Equipa {
+public class Equipa implements Serializable {
+
+    private static final long serialVersionUID = 1L;
     private static int contador = 1;
     private ArrayList<Jogadores> jogadoresnaequipa;
     private String idEquipa;

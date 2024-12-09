@@ -1,8 +1,11 @@
 package backend;
 
+import java.io.Serializable;
 import java.util.*;
 
-public class Torneios {
+public class Torneios implements Serializable {
+
+    private static final long serialVersionUID = 1L;
     private static int contador = 1;
     private String idTorneio;
     private String nomeTorneio;

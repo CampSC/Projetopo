@@ -1,9 +1,12 @@
 package backend;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ListaTorneios {
+public class ListaTorneios implements Serializable {
+
+    private static final long serialVersionUID = 1L;
 
     private static ListaTorneios instanciaUnica = null;
 
@@ -22,6 +25,13 @@ public class ListaTorneios {
         return instanciaUnica;
     }
 
+    public static void setInstancia(ListaTorneios novaInstancia) {
+        if (novaInstancia != null) {
+            instanciaUnica = novaInstancia;
+        } else {
+            throw new IllegalArgumentException("A nova instância não pode ser null.");
+        }
+    }
     public ArrayList<Torneios> getListaTorneios() {
         return listaTorneios;
     }
@@ -87,7 +97,7 @@ public class ListaTorneios {
                 if(!torneios.getEquipasParticipantes().isEmpty()) {
                     return torneios.getEquipasParticipantes();
                 }else{
-                    System.out.println("Equipa encontra-se vazia");
+                    System.out.println("Torneio encontra-se vazio");
                     return null;
                 }
             }

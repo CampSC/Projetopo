@@ -1,6 +1,9 @@
 package backend;
 
-public class EFOOTBALL extends Jogadores{
+import java.io.Serializable;
+
+public class EFOOTBALL extends Jogadores implements Serializable {
+    private static final long serialVersionUID = 1L;
     private String posicao;
     private int golos;
     private int assistencias;

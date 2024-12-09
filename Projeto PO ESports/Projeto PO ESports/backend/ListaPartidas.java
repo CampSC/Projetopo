@@ -1,8 +1,10 @@
 package backend;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
-public class ListaPartidas {
+public class ListaPartidas implements Serializable {
+    private static final long serialVersionUID = 1L;
 
     private static ListaPartidas instanciaUnica = null;
 
@@ -17,6 +19,14 @@ public class ListaPartidas {
             instanciaUnica = new ListaPartidas();
         }
         return instanciaUnica;
+    }
+
+    public static void setInstancia(ListaPartidas novaInstancia) {
+        if (novaInstancia != null) {
+            instanciaUnica = novaInstancia;
+        } else {
+            throw new IllegalArgumentException("A nova instância não pode ser null.");
+        }
     }
 
     public boolean adicionarPartida(Partida partida) {
