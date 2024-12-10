@@ -3,6 +3,7 @@ import backend.*;
 
 import java.io.*;
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 
 public class Funcoes {
@@ -14,14 +15,12 @@ public class Funcoes {
 
     Equipa equipa = new Equipa();
     Treinadores treinadores = new Treinadores();
-    Torneios torneios = new Torneios();
     MOBA moba = new MOBA();
     FPS fps = new FPS();
     EFOOTBALL efootball = new EFOOTBALL();
     Consola consola = new Consola();
     Admin admin = new Admin();
     Partida partida = new Partida();
-
     Sistema sistema = new Sistema();
 
     public String LoginJogador() {
@@ -202,7 +201,6 @@ public class Funcoes {
     }
 
     public boolean CriarTorneio() {
-
         String nomeTorneio = consola.lerString("Insira o nome do torneio");
 
         System.out.println("Escolha o tipo de jogo para o torneio:");
@@ -213,7 +211,7 @@ public class Funcoes {
 
         String tipoJogo = null;
 
-        switch (opcao) {
+        switch (opcao){
             case 1:
                 tipoJogo = "FPS";
                 break;
@@ -228,8 +226,51 @@ public class Funcoes {
                 return false;
         }
 
+        Torneios novoTorneio = new Torneios(nomeTorneio, tipoJogo, null);
 
-        Torneios novoTorneio = new Torneios(nomeTorneio, tipoJogo);
+
+        System.out.println("Agora, vamos adicionar equipes ao torneio.");
+        while (true) {
+            // Listar as equipas disponíveis para o tipo de jogo do torneio
+            System.out.println("Equipes disponíveis para o tipo: " + tipoJogo);
+            List<Equipa> equipasDisponiveis = listaEquipas.EquipaPorTipo(tipoJogo);
+
+            if (equipasDisponiveis.isEmpty()) {
+                System.out.println("Nenhuma equipe disponível para este tipo de jogo.");
+                break;
+            }
+
+            for (int i = 0; i < equipasDisponiveis.size(); i++) {
+                Equipa equipe = equipasDisponiveis.get(i);
+                System.out.println((i + 1) + " - Nome: " + equipe.getNomeEquipa() + " | ID: " + equipe.getIdEquipa());
+            }
+
+            // Solicitar ao usuário que escolha uma equipe
+            int escolha = consola.lerInteiro("Escolha uma equipe para adicionar ao torneio (0 para sair):");
+            if (escolha == 0) {
+                break;
+            }
+
+            if (escolha < 1 || escolha > equipasDisponiveis.size()) {
+                System.out.println("Opção inválida! Tente novamente.");
+                continue;
+            }
+
+            Equipa equipaEscolhida = equipasDisponiveis.get(escolha - 1);
+
+            // Adicionar equipe ao torneio
+            if (!novoTorneio.adicionarEquipa(equipaEscolhida)) {
+                System.out.println("Erro ao adicionar a equipa ao torneio. Verifique se ela já foi adicionada.");
+            } else {
+                System.out.println("Equipa adicionada com sucesso!");
+            }
+        }
+
+        // Verificar se pelo menos uma equipe foi adicionada
+        if (novoTorneio.getEquipasParticipantes().isEmpty()) {
+            System.out.println("Nenhuma equipe foi adicionada. O torneio não será criado.");
+            return false;
+        }
 
         // Adicionar o torneio à lista de torneios
         if (!listaTorneios.adicionarTorneio(novoTorneio)) {

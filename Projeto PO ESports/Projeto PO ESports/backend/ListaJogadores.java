@@ -66,7 +66,7 @@ public class ListaJogadores implements Serializable {
 
     public String LoginJogador(String nickname , String password){
             for(Jogadores jogador : listajogadores){
-                if(nickname.equals(jogador.getNicknameJogador()) && password.equals(jogador.getpassword())){
+                if(nickname.equals(jogador.getNicknameJogador()) && password.equals(jogador.getPassword())){
                     System.out.println("Login bem sucedido");
                     return jogador.getIdJogador();
                 }
@@ -127,4 +127,25 @@ public class ListaJogadores implements Serializable {
             jogadores.setNicknameJogador(nickname);
         }
     }
+
+    public void verTorneiosJogador(String idJogador) {
+        Jogadores jogadores = JogadorpeloId(idJogador);
+        if (jogadores == null) {
+            System.out.println("Jogador não encontrado.");
+            return;
+        }
+
+        List<Torneios> torneios = jogadores.getTorneios(); //
+        if (torneios == null || torneios.isEmpty()) {
+            System.out.println("O jogador não está inscrito em nenhum torneio.");
+        } else {
+            System.out.println("=========================================");
+            System.out.println("    TORNEIOS EM QUE O JOGADOR PARTICIPA  ");
+            System.out.println("=========================================");
+            for (Torneios torneio : torneios) {
+                System.out.println("- " + torneio.getNomeTorneio());
+            }
+        }
+    }
+
 }

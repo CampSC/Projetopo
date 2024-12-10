@@ -1,4 +1,5 @@
 package backend;
+
 import java.io.Serializable;
 import java.util.*;
 
@@ -11,8 +12,10 @@ public abstract class Jogadores implements Serializable {
     private String nicknameJogador;
     private String tipoJogador;
     private String password;
-    public Jogadores(){
+    private List<Torneios> torneios;  // Lista de torneios em que o jogador participa
 
+    public Jogadores() {
+        this.torneios = new ArrayList<>();
     }
 
     public Jogadores(String nomeJogador, String nicknameJogador, String tipoJogador, String password) {
@@ -21,6 +24,7 @@ public abstract class Jogadores implements Serializable {
         this.nicknameJogador = nicknameJogador;
         this.tipoJogador = tipoJogador;
         this.password = password;
+        this.torneios = new ArrayList<>();
     }
 
     public String getIdJogador() {
@@ -51,12 +55,24 @@ public abstract class Jogadores implements Serializable {
         this.tipoJogador = tipoJogador;
     }
 
-    public String getpassword(){
+    public String getPassword() {
         return password;
     }
 
-    public void setPassword(String password){
-        this.password=password;
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
+    // Método para adicionar um torneio à lista de torneios em que o jogador participa
+    public void adicionarTorneio(Torneios torneio) {
+        if (!torneios.contains(torneio)) {
+            torneios.add(torneio);
+        }
+    }
+
+    // Método para obter a lista de torneios em que o jogador está inscrito
+    public List<Torneios> getTorneios() {
+        return torneios;
     }
 
 }

@@ -76,4 +76,20 @@ public class ListaEquipas implements Serializable {
             equipa.setNomeEquipa(nome);
         }
     }
+
+    public ArrayList<Equipa> EquipaPorTipo(String tipoEquipa) {
+        ArrayList<Equipa> equipasPorTipo = new ArrayList<>();
+
+        for (Equipa equipa : listaequipas) {
+            if (equipa.getTipoEquipa().equalsIgnoreCase(tipoEquipa)) {
+                equipasPorTipo.add(equipa);
+            }
+        }
+
+        if (equipasPorTipo.isEmpty()) {
+            System.out.println("Nenhuma equipa encontrada para o tipo especificado: " + tipoEquipa);
+        }
+
+        return equipasPorTipo;
+    }
 }

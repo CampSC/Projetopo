@@ -65,11 +65,10 @@ public class TabelaClassificacao implements Serializable {
         classificacao.remove(equipa);
     }
 
-    /*public void atualizarClassificacao(Partida partida) {
+    public void atualizarClassificacao(Partida partida) {
         Equipa equipaA = partida.getEquipaA();
         Equipa equipaB = partida.getEquipaB();
-        int pontosA = partida.getPontosEquipaA();
-        int pontosB = partida.getPontosEquipaB();
+        String resultado = partida.getResultado();
 
         adicionarEquipa(equipaA);
         adicionarEquipa(equipaB);
@@ -77,17 +76,26 @@ public class TabelaClassificacao implements Serializable {
         EstatisticasEquipa estatisticasA = classificacao.get(equipaA);
         EstatisticasEquipa estatisticasB = classificacao.get(equipaB);
 
-        if (pontosA > pontosB) {
-            estatisticasA.registrarVitoria();
-            estatisticasB.registrarDerrota();
-        } else if (pontosA < pontosB) {
-            estatisticasB.registrarVitoria();
-            estatisticasA.registrarDerrota();
-        } else {
-            estatisticasA.registrarEmpate();
-            estatisticasB.registrarEmpate();
+        // Processa o resultado no formato "X-Y"
+        try {
+            String[] placar = resultado.split("-");
+            int pontosA = Integer.parseInt(placar[0].trim());
+            int pontosB = Integer.parseInt(placar[1].trim());
+
+            if (pontosA > pontosB) {
+                estatisticasA.registrarVitoria();
+                estatisticasB.registrarDerrota();
+            } else if (pontosA < pontosB) {
+                estatisticasB.registrarVitoria();
+                estatisticasA.registrarDerrota();
+            } else {
+                estatisticasA.registrarEmpate();
+                estatisticasB.registrarEmpate();
+            }
+        } catch (Exception e) {
+            System.out.println("Erro ao processar resultado da partida: " + resultado);
         }
-    }*/
+    }
 
     public List<Map.Entry<Equipa, EstatisticasEquipa>> obterClassificacao() {
         List<Map.Entry<Equipa, EstatisticasEquipa>> listaClassificacao = new ArrayList<>(classificacao.entrySet());

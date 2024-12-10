@@ -14,6 +14,7 @@ public class Partida implements Serializable {
     private Equipa equipaA;
     private Equipa equipaB;
     private LocalDate dataPartida;
+    private String resultado;
 
     // Construtor
     public Partida(Equipa equipaA, Equipa equipaB, LocalDate dataPartida) {
@@ -45,6 +46,11 @@ public class Partida implements Serializable {
         this.dataPartida = dataPartida;
     }
 
+    public void setResultado(String resultado){
+        this.resultado = resultado;
+    }
+
+    public String getResultado(){ return resultado;}
 
     @Override
     public String toString() {

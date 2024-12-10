@@ -10,10 +10,10 @@ public class Menus {
     ListaEquipas listaEquipas = ListaEquipas.getInstancia();
     ListaTorneios listaTorneios = ListaTorneios.getInstancia();
     ListaPartidas listaPartidas = ListaPartidas.getInstancia();
+    private TabelaClassificacao tabelaClassificacao;
     Consola consola = new Consola();
     Funcoes funcoes = new Funcoes();
     Equipa equipa = new Equipa();
-    Torneios torneios = new Torneios();
 
     public Menus(Sistema sistema){
         this.sistema = sistema;
@@ -184,7 +184,7 @@ public class Menus {
                     System.out.println("=========================================");
                     System.out.println("       TORNEIOS EM QUE PARTICIPA         ");
                     System.out.println("=========================================");
-                    //listaJogadores.verTorneiosJogador(idjogador);
+                    listaJogadores.verTorneiosJogador(idjogador);
                     break;
                 case 4:
                     System.out.println("=========================================");
@@ -264,6 +264,43 @@ public class Menus {
             }
         }
     }
+
+    /*public void RegistarResultadosAtualizarClassificacoes() {
+        // Mostrar partidas agendadas
+        System.out.println("=========================================");
+        System.out.println("            RESULTADOS DAS PARTIDAS      ");
+        System.out.println("=========================================");
+        listaPartidas.mostrarPartidas();
+        System.out.println("Escolha a partida para registrar o resultado:");
+
+        // Ler a ID da partida
+        String idPartida = consola.lerString("Digite o ID da partida:");
+
+        // Obter a partida específica
+        Partida partida = listaPartidas.buscarPartidaPeloId(idPartida);
+
+        if (partida == null) {
+            System.out.println("Partida não encontrada.");
+            return;
+        }
+
+        // Pedir os resultados da partida
+        String equipaVencedora = String.valueOf(consola.lerInteiro("Equipa vencedora:"));
+
+        // Registrar os resultados
+
+        // Atualizar as classificações
+
+
+        // Mostrar os resultados
+        System.out.println("=========================================");
+        System.out.println("Resultado registrado com sucesso!");
+        // Atualizando a classificação
+        System.out.println("Atualizando a classificação...");
+        listaTorneios.atualizarClassificacao(partida.getTorneioId());
+        listaTorneios.mostrarClassificacao(partida.getTorneioId());  // Mostrar a classificação após atualização
+    }*/
+
 
     public void MenuGerirTorneios() {
         while (true) {
