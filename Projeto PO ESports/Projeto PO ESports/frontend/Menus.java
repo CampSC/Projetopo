@@ -2,6 +2,11 @@ package frontend;
 
 import backend.*;
 
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
 public class Menus {
 
     private Sistema sistema;
@@ -245,7 +250,7 @@ public class Menus {
                     System.out.println("REGISTAR RESULTADOS E ATUALIZAR CLASSIFICAÇÕES");
                     System.out.println("=========================================");
                     // Função para registar resultados e atualizar classificações
-                    //funcoes.RegistarResultadosAtualizarClassificacoes();
+                    RegistarResultadosAtualizarClassificacoes();
                     consola.pausar();
                     break;
                 case 5:
@@ -265,10 +270,11 @@ public class Menus {
         }
     }
 
-    /*public void RegistarResultadosAtualizarClassificacoes() {
+
+    public void RegistarResultadosAtualizarClassificacoes() {
         // Mostrar partidas agendadas
         System.out.println("=========================================");
-        System.out.println("            RESULTADOS DAS PARTIDAS      ");
+        System.out.println("           RESULTADOS DAS PARTIDAS      ");
         System.out.println("=========================================");
         listaPartidas.mostrarPartidas();
         System.out.println("Escolha a partida para registrar o resultado:");
@@ -287,19 +293,27 @@ public class Menus {
         // Pedir os resultados da partida
         String equipaVencedora = String.valueOf(consola.lerInteiro("Equipa vencedora:"));
 
-        // Registrar os resultados
+        // Atualizar Estatisticas
+
+        ArrayList<Jogadores> jogadorA = partida.getEquipaA().getJogadoresnaequipa();
+        ArrayList<Jogadores> jogadorB = partida.getEquipaB().getJogadoresnaequipa();
+        String tipoPartida = partida.getEquipaA().getTipoEquipa();
+
+        funcoes.recolherEstatisticas(tipoPartida, jogadorA);
+        funcoes.recolherEstatisticas(tipoPartida, jogadorB);
 
         // Atualizar as classificações
 
 
         // Mostrar os resultados
         System.out.println("=========================================");
-        System.out.println("Resultado registrado com sucesso!");
+        System.out.println("    Resultado registrado com sucesso!    ");
+        System.out.println("=========================================");
         // Atualizando a classificação
         System.out.println("Atualizando a classificação...");
-        listaTorneios.atualizarClassificacao(partida.getTorneioId());
-        listaTorneios.mostrarClassificacao(partida.getTorneioId());  // Mostrar a classificação após atualização
-    }*/
+        //listaTorneios.atualizarClassificacao(partida.getTorneioId());
+        //listaTorneios.mostrarClassificacao(partida.getTorneioId());  // Mostrar a classificação após atualização
+    }
 
 
     public void MenuGerirTorneios() {

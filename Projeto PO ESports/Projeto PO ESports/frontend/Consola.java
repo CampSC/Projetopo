@@ -29,6 +29,23 @@ public class Consola {
         return numero; 
     }
 
+    public float lerFloat(String valorInput) {
+        float numero = 0;
+        boolean entradaValida = false;
+
+        while (!entradaValida) {
+            try {
+                System.out.print(valorInput + ": ");
+                numero = Float.parseFloat(scanner.nextLine());
+                entradaValida = true;
+            } catch (NumberFormatException e) {
+                System.out.println("Erro! O valor inserido não é um número inteiro válido. Tente novamente.");
+            }
+        }
+
+        return numero;
+    }
+
     
     public String lerString(String valorInput) {
         System.out.print(valorInput + ": ");

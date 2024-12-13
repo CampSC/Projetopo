@@ -1,10 +1,11 @@
 package frontend;
 import backend.*;
 
-import java.io.*;
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class Funcoes {
     ListaJogadores listaJogadores = ListaJogadores.getInstancia();
@@ -462,4 +463,102 @@ public class Funcoes {
 
         return true;
     }
+
+    public void recolherEstatisticas(String tipoPartida, ArrayList<Jogadores>  jogador){
+        if(tipoPartida.equals("EFOOTBALL")){
+
+            Map<String, Object> novasEstatisticas = new HashMap<>();
+            novasEstatisticas.put("golos", consola.lerInteiro("Digite o número de gols:"));
+            novasEstatisticas.put("assistencias", consola.lerInteiro("Digite o número de assistências:"));
+            novasEstatisticas.put("defesas", consola.lerInteiro("Digite o número de defesas:"));
+
+            for(Jogadores jogadores : jogador){
+                Funcoes.atualizarEstatisticasPorTipo(jogadores, novasEstatisticas);
+            }
+        }
+
+        if(tipoPartida.equals("FPS")){
+            Map<String, Object> novasEstatisticas = new HashMap<>();
+            novasEstatisticas.put("Precisão", consola.lerFloat("Digite a percentagem de headshots:"));
+            novasEstatisticas.put("Headshots", consola.lerInteiro("Digite o número de Headshots:"));
+
+            for(Jogadores jogadores : jogador){
+                Funcoes.atualizarEstatisticasPorTipo(jogadores, novasEstatisticas);
+            }
+        }
+
+        if(tipoPartida.equals("MOBA")){
+            Map<String, Object> novasEstatisticas = new HashMap<>();
+            novasEstatisticas.put("Kills", consola.lerInteiro("Digite o numero de kills:"));
+            novasEstatisticas.put("Assists",consola.lerInteiro("Digite o número de assists:"));
+            novasEstatisticas.put("Deaths", consola.lerInteiro("Digite o número de deaths:"));
+
+            for(Jogadores jogadores : jogador){
+                Funcoes.atualizarEstatisticasPorTipo(jogadores, novasEstatisticas);
+            }
+        }
+    }
+
+    public static void atualizarEstatisticasPorTipo(Jogadores jogador, Map<String, Object> novasEstatisticas) {
+        String tipo = jogador.getTipoJogador();
+
+        switch (tipo) {
+            case "FPS":
+                if (novasEstatisticas.containsKey("precisao") && novasEstatisticas.containsKey("headshots")) {
+                    float novaPrecisao = (float) novasEstatisticas.get("precisao");
+                    int novosHeadshots = (int) novasEstatisticas.get("headshots");
+                    atualizarEstatisticasFPS((FPS) jogador, novaPrecisao, novosHeadshots);
+                } else {
+                    System.out.println("Dados de estatísticas para FPS incompletos.");
+                }
+                break;
+            case "MOBA":
+                if (novasEstatisticas.containsKey("kills") && novasEstatisticas.containsKey("assists") && novasEstatisticas.containsKey("minions")) {
+                    int novosKills = (int) novasEstatisticas.get("kills");
+                    int novosAssists = (int) novasEstatisticas.get("assists");
+                    int novosMinions = (int) novasEstatisticas.get("minions");
+                    atualizarEstatisticasMOBA((MOBA) jogador, novosKills, novosAssists, novosMinions);
+                } else {
+                    System.out.println("Dados de estatísticas para MOBA incompletos.");
+                }
+                break;
+            case "EFOOTBALL":
+                if (novasEstatisticas.containsKey("golos") && novasEstatisticas.containsKey("assistencias") && novasEstatisticas.containsKey("defesas")) {
+                    int novosGolos = (int) novasEstatisticas.get("golos");
+                    int novasAssistencias = (int) novasEstatisticas.get("assistencias");
+                    int novasDefesas = (int) novasEstatisticas.get("defesas");
+                    atualizarEstatisticasEFOOTBALL((EFOOTBALL) jogador, novosGolos, novasAssistencias, novasDefesas);
+                } else {
+                    System.out.println("Dados de estatísticas para EFOOTBALL incompletos.");
+                }
+                break;
+            default:
+                System.out.println("Tipo de jogador inválido: " + tipo);
+                break;
+        }
+    }
+
+
+    // Método para atualizar as estatísticas de jogadores do tipo EFOOTBALL
+    private static void atualizarEstatisticasEFOOTBALL(EFOOTBALL jogador, int golos, int assistencias, int defesas) {
+        System.out.println("Atualizando estatísticas do jogador EFOOTBALL: " + jogador.getNomeJogador());
+        jogador.setGolos(jogador.getGolos() + golos);  // Atualizar gols
+        jogador.setAssistencias(jogador.getAssistencias() + assistencias);  // Atualizar assistências
+        jogador.setDefesas(jogador.getDefesas() + defesas);  // Atualizar defesas
+    }
+
+    // Método para atualizar as estatísticas de jogadores do tipo FPS
+    private static void atualizarEstatisticasFPS(FPS jogador, float precisao, int headshots) {
+        System.out.println("Atualizando estatísticas do jogador FPS: " + jogador.getNomeJogador());
+        jogador.setPrecisao(jogador.getPrecisao() * precisao);  // Atualizar precisão
+        jogador.setHeadshots(jogador.getHeadshots() + headshots);  // Atualizar headshots
+    }
+
+    // Método para atualizar as estatísticas de jogadores do tipo MOBA
+    private static void atualizarEstatisticasMOBA(MOBA jogador, int kills, int assists, int novosMinions) {
+        System.out.println("Atualizando estatísticas do jogador MOBA: " + jogador.getNomeJogador());
+        jogador.setKills(jogador.getKills() + kills);  // Atualizar kills
+        jogador.setAssists(jogador.getAssists() + assists);  // Atualizar assists// Atualizar minions farmed
+    }
 }
+
